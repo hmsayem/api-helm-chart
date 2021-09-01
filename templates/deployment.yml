@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.deployment.name }}
+  labels:
+    app: {{ .Values.deployment.name }}
+    tier: {{ .Values.deployment.tier }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.deployment.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.deployment.name }}
+        tier: {{ .Values.deployment.tier }} 
+    spec: 
+      containers:
+      - name: {{ .Values.deployment.name }} 
+        env:
+          - name: USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.deployment.name }}-basic-auth
+                key: username
+          - name: PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.deployment.name }}-basic-auth
+                key: password
+        image: {{ .Values.deployment.container.image }}
+        imagePullPolicy: {{ .Values.deployment.container.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.deployment.container.port }}

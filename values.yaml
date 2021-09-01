@@ -1,0 +1,19 @@
+replicaCount: 1
+
+deployment:
+  name: api-server
+  tier: backend
+  container:
+    image: hmsayem/go-rest-api
+    pullPolicy: IfNotPresent
+    port: 8080
+
+service:
+  type: NodePort
+  port: 8000
+  targetPort: 8080
+
+secret:
+  type: kubernetes.io/basic-auth
+  username: admin
+  password: root

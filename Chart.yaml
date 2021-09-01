@@ -1,0 +1,11 @@
+apiVersion: v2
+name: api-server
+description: A Helm chart for API server
+type: application
+version: 0.1.0
+keywords:
+  - api
+appVersion: "1.16.0"
+maintainers:
+- name: Hossain Mahmud
+  url: https://github.com/hmsayem
